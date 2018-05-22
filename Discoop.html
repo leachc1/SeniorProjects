@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<title>DISCOOP</title>
+<body>
+
+<center><h1>D
+<img src = "https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Ice-Cream-PNG/Transparent_Ice_Cream_Cone_PNG_Picture.png?m=1434276752" 
+alt = "Scoopity Scoop" width="10" height="30"/>
+SCOOP</h1></center>
+
+<div id="map" style="width:100%;height:500px"></div>
+
+<!-- script that displays a google map with specified coordinates
+	 uses little ice cream cone as a marker -->
+<script>
+var mapCanvas = document.getElementById("map");
+function myMap() {
+    var myCenter = new google.maps.LatLng(51.508742,-0.120850); 
+	var mapOptions = {center: myCenter, zoom: 5};
+	var map = new google.maps.Map(mapCanvas, mapOptions);
+	var icone = {
+			url: "https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Ice-Cream-PNG/Transparent_Ice_Cream_Cone_PNG_Picture.png?m=1434276752",
+			scaledSize: new google.maps.Size(10,20),
+			origin: new google.maps.Point(0,0),
+			anchor: new google.maps.Point(0,0)
+	}
+	var marker = new google.maps.Marker({
+		position: myCenter,
+	    icon: icone
+	});
+	marker.setMap(map);
+}
+</script>
+
+<!-- We will need to get a key to use Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+
+</body>
+</html>
