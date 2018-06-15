@@ -32,4 +32,8 @@ public class submission extends AppCompatActivity {
     public void toastSubmit(View v) {
         toastSubmitMsg("Your discount has been submitted");
     }
+
+        public void returnBtn(View v) {
+            finish();
+        }
 }
