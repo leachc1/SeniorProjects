@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, search.class);
             startActivity(intent);
         } else if (id == R.id.nav_submit) {
-            Intent intent = new Intent(this, submission.class);
+            Intent intent = new Intent(this, submit.class);
             startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

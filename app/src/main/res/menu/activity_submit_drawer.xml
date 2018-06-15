@@ -9,11 +9,10 @@
             android:icon="@drawable/ic_map_24px"
             android:title="Map" />
         <item
-            android:id="@+id/nav_submit"
-            android:icon="@drawable/ic_add_24px"
-            android:title="Submit" />
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_baseline_search_24px"
+            android:title="Search" />
 
     </group>
-
 
 </menu>
