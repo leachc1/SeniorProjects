@@ -8,6 +8,7 @@
     <string name="action_about">About Discoop</string>
     <string name="title_activity_search">search</string>
     <string name="title_activity_submit">submit</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

@@ -73,10 +73,10 @@ public class submit extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_search) {
-            Intent intent = new Intent(this, search.class);
+        if (id == R.id.nav_map) {
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_map) {
+        } else if (id == R.id.nav_search) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

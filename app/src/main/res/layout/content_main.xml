@@ -8,4 +8,30 @@
     tools:context="com.wit.edu.leachc1.discoop.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <android.support.v7.widget.SearchView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.SearchView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="showMap"
+            android:text="Show Map" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:onClick="performSearch"
+            android:text="Search"/>
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>
