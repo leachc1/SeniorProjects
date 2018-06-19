@@ -16,10 +16,10 @@
 
     <string name="submit_button">Submit</string>
 
-    <string name="submit_discount_type">Select Discount Type</string>
-    <string name="submit_discount_details">Enter Discount Details</string>
+    <string name="submit_discount_type">Select Type</string>
+    <string name="submit_discount_details">Enter Details</string>
     <string name="submit_discount_details_hint">Enter discount details here</string>
-    <string name="submit_discount_location">Enter Discount Location</string>
+    <string name="submit_discount_location">Enter Location</string>
     <string name="submit_discount_location_hint">Enter discount location here</string>
     <string name="submit_discount_expiration">Enter Expiration Date</string>
     <string name="submit_discount_expiration_hint">Enter discount expiration date here</string>

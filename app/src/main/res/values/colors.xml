@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="discoopPink">#F7728A</color>
+    <color name="discoopPinkAlt">#f7adba</color>
+    <color name="discoopBlueAlt">#43c4db</color>
+    <color name="discoopBlue">#50E4FE</color>
+    <color name="discoopBlueDark">#116270</color>
 </resources>

@@ -20,7 +20,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_submit"
-        app:menu="@menu/activity_submit_drawer" />
+        app:menu="@menu/activity_submit_drawer"
+        app:itemTextColor="@color/discoopBlueDark"/>
 
 
 
