@@ -7,8 +7,22 @@
 
     <string name="action_about">About Discoop</string>
     <string name="title_activity_search">search</string>
-    <string name="title_activity_submit">submit</string>
+    <string name="title_activity_submit">Submit a Discount</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="checkbox_bar_name">Restaurant/Bar</string>
+    <string name="checkbox_retail_name">Retail</string>
+    <string name="checkbox_other_name">Other</string>
+
+    <string name="submit_button">Submit</string>
+
+    <string name="submit_discount_type">Select Discount Type</string>
+    <string name="submit_discount_details">Enter Discount Details</string>
+    <string name="submit_discount_details_hint">Enter discount details here</string>
+    <string name="submit_discount_location">Enter Discount Location</string>
+    <string name="submit_discount_location_hint">Enter discount location here</string>
+    <string name="submit_discount_expiration">Enter Expiration Date</string>
+    <string name="submit_discount_expiration_hint">Enter discount expiration date here</string>
 
 
 </resources>

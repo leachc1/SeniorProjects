@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 public class submit extends AppCompatActivity
@@ -95,8 +96,39 @@ public class submit extends AppCompatActivity
         toastSubmitMsg("Your discount has been submitted");
     }
 
+    public void toastAdded(View v) { toastSubmitMsg("Added");}
+
+    public void toastRemoved(View v) { toastSubmitMsg("Removed");}
+
     public void returnBtn(View v) {
         finish();
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_bar:
+                if (checked)
+                    toastAdded(view);
+                else
+                    toastRemoved(view);
+                break;
+            case R.id.checkbox_retail:
+                if (checked)
+                    toastAdded(view);
+                else
+                    toastRemoved(view);
+                break;
+            case R.id.checkbox_other:
+                if (checked)
+                    toastAdded(view);
+                else
+                    toastRemoved(view);
+                break;
+        }
     }
 }
 
