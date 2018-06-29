@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    compile 'com.google.android.gms:play-services:11.8.0'
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.wit.edu.leachc1.discoop"
@@ -30,3 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+
