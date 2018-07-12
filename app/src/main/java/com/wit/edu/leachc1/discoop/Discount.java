@@ -14,10 +14,11 @@ public class Discount {
     public Discount() {
     }
 
-    public Discount(int id, String type, String address, String details) {
+    public Discount(int id, String type, String address, String expiration, String details) {
         this.id = id;
         this.type = type;
         this.address = address;
+        this.expiration = expiration;
         this.details = details;
     }
 
@@ -30,6 +31,9 @@ public class Discount {
     }
     public void setAddress(String address) {
         this.address = address;
+    }
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
     public void setDetails(String details) {
         this.details = details;
@@ -44,6 +48,9 @@ public class Discount {
     }
     public String getAddress() {
         return address;
+    }
+    public String getExpiration() {
+        return expiration;
     }
     public String getDetails() {
         return details;
