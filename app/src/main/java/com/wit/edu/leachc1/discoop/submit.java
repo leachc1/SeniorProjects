@@ -83,7 +83,7 @@ public class submit extends AppCompatActivity
                 Integer.toString(month);
                 int year = datePicker.getYear();
                 Integer.toString(year);
-                String dateString = day + " " + month + " " + year;
+                String dateString = month + "/" + day + "/" + year;
 
                 insertRows(keyIdInc, typeString, addressString, dateString, detailsString);
             }

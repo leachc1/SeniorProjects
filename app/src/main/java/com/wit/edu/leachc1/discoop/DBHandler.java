@@ -16,14 +16,14 @@ public class DBHandler extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
-    private static final String DATABASE_NAME = "discountInfo";
+    private static final String DATABASE_NAME = "discountsInformation";
     // Contacts table name
     private static final String TABLE_DISCOUNTS = "discounts";
     // Shops Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_TYPE = "type";
     private static final String KEY_ADDR = "address";
-    private static final String KEY_EXPR = "expiration date";
+    private static final String KEY_EXPR = "expiration";
     private static final String KEY_DETAILS = "details";
 
     public DBHandler(Context context) {
@@ -32,9 +32,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_DISCOUNTS_TABLE = "CREATE TABLE" + TABLE_DISCOUNTS + "("
-                + KEY_ID + "INTEGER PRIMARY KEY," + KEY_TYPE + "TEXT," + KEY_ADDR + "TEXT,"
-                + KEY_EXPR + "TEXT" + KEY_DETAILS + "TEXT" + "(";
+        String CREATE_DISCOUNTS_TABLE = "CREATE TABLE " + TABLE_DISCOUNTS + " ("
+                + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_TYPE + " TEXT, " + KEY_ADDR + " TEXT, "
+                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT" + ")";
         db.execSQL(CREATE_DISCOUNTS_TABLE);
     }
 
