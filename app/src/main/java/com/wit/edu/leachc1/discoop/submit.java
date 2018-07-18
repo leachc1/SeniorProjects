@@ -21,11 +21,22 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.os.AsyncTask;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.app.ProgressDialog;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 public class submit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Button btnShowCoord;
+    EditText edtAddress;
+    String locationCoordinates;
 
     boolean checkboxBar = false;
     boolean checkboxRetail = false;
@@ -36,6 +47,16 @@ public class submit extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
+
+        btnShowCoord = (Button) findViewById(R.id.submitBtn);
+        edtAddress = (EditText) findViewById(R.id.editText2);
+
+        btnShowCoord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new submit.GetCoordinates().execute(edtAddress.getText().toString().replace(" ", "+"));
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
@@ -65,18 +86,18 @@ public class submit extends AppCompatActivity
                 }
 
                 // Getting Address input
-                EditText addressStreetInput =(EditText)findViewById(R.id.editText2);
+                EditText addressStreetInput = (EditText) findViewById(R.id.editText2);
                 String addressStreetString = addressStreetInput.getText().toString();
-                EditText addressStateInput = (EditText)findViewById(R.id.editText4);
+                EditText addressStateInput = (EditText) findViewById(R.id.editText4);
                 String addressStateString = addressStateInput.getText().toString();
                 String addressString = addressStreetString + " " + addressStateString;
 
                 // Getting Details input
-                TextInputEditText detailsInput = (TextInputEditText)findViewById(R.id.textInputEditText);
+                TextInputEditText detailsInput = (TextInputEditText) findViewById(R.id.textInputEditText);
                 String detailsString = detailsInput.getText().toString();
 
                 // Getting Expiration Date input
-                DatePicker datePicker = (DatePicker)findViewById(R.id.simpleDatePicker);
+                DatePicker datePicker = (DatePicker) findViewById(R.id.simpleDatePicker);
                 int day = datePicker.getDayOfMonth();
                 Integer.toString(day);
                 int month = datePicker.getMonth();
@@ -85,7 +106,7 @@ public class submit extends AppCompatActivity
                 Integer.toString(year);
                 String dateString = month + "/" + day + "/" + year;
 
-                insertRows(keyIdInc, typeString, addressString, dateString, detailsString);
+                insertRows(keyIdInc, typeString, locationCoordinates, dateString, detailsString);
             }
         });
     }
@@ -105,6 +126,7 @@ public class submit extends AppCompatActivity
             Log.d("Discount::", log);
         }
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
@@ -165,9 +187,13 @@ public class submit extends AppCompatActivity
         toastSubmitMsg("Your discount has been submitted");
     }
 
-    public void toastAdded(View v) { toastSubmitMsg("Added");}
+    public void toastAdded(View v) {
+        toastSubmitMsg("Added");
+    }
 
-    public void toastRemoved(View v) { toastSubmitMsg("Removed");}
+    public void toastRemoved(View v) {
+        toastSubmitMsg("Removed");
+    }
 
     public void returnBtn(View v) {
         finish();
@@ -178,14 +204,14 @@ public class submit extends AppCompatActivity
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.checkbox_bar:
                 if (checked) {
                     checkboxBar = true;
                     toastAdded(view);
                 } else
                     checkboxBar = false;
-                    toastRemoved(view);
+                toastRemoved(view);
                 break;
             case R.id.checkbox_retail:
                 if (checked) {
@@ -193,7 +219,7 @@ public class submit extends AppCompatActivity
                     toastAdded(view);
                 } else
                     checkboxRetail = false;
-                    toastRemoved(view);
+                toastRemoved(view);
                 break;
             case R.id.checkbox_other:
                 if (checked) {
@@ -201,9 +227,56 @@ public class submit extends AppCompatActivity
                     toastAdded(view);
                 } else
                     checkboxOther = false;
-                    toastRemoved(view);
+                toastRemoved(view);
                 break;
         }
     }
-}
 
+    private class GetCoordinates extends AsyncTask<String, Void, String> {
+        ProgressDialog dialog = new ProgressDialog(submit.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Please wait....");
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String response;
+            try {
+                String address = strings[0];
+                HttpDataHandler http = new HttpDataHandler();
+                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s", address);
+                response = http.getHTTPData(url);
+                return response;
+            } catch (Exception ex) {
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                String lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
+                        .getJSONObject("location").get("lat").toString();
+                String lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
+                        .getJSONObject("location").get("lng").toString();
+
+                locationCoordinates = lat + " / " + lng;
+
+                if (dialog.isShowing())
+                    dialog.dismiss();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
