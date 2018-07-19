@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#50e4ff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.wit.edu.leachc1.discoop.MainActivity"
     tools:layout_editor_absoluteY="81dp"
@@ -16,7 +17,16 @@
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout"></android.support.v7.widget.SearchView>
+        app:layout_constraintTop_toTopOf="@+id/frameLayout">
+    </android.support.v7.widget.SearchView>
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/header"
+        />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -33,8 +43,9 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:onClick="showMap"
+            android:background="#fb98aa"
             android:text="Show Map" />
 
         <Button
@@ -42,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:background="#fb98aa"
             android:onClick="performSearch"
             android:text="Search" />
 
