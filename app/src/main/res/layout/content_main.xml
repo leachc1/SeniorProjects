@@ -34,9 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:onClick="showMap"
-            android:background="#fb98aa"
-            android:text="Show Map" />
+            android:background="@drawable/button_bg_round"
+            android:text="Show Map"
+            android:textColor="#FFF"/>
 
 
         <TextView
