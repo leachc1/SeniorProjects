@@ -278,5 +278,11 @@ public class submit extends AppCompatActivity
             }
         }
     }
+    
+    public boolean aboutPage(MenuItem item) {
+        Intent intent = new Intent(this, AboutDiscoop.class);
+        startActivity(intent);
+        return true;
+    }
 
 }
