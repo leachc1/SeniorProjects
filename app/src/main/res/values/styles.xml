@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="colorPrimary">@color/discoopBlueAlt</item>
+        <item name="colorPrimary">@color/discoopPinkAlt</item>
         <item name="colorPrimaryDark">@color/discoopBlueDark</item>
         <item name="colorAccent">@color/discoopPink</item>
     </style>
