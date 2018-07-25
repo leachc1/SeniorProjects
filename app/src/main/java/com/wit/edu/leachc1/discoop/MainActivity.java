@@ -123,21 +123,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void performSearch(View v) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
-
     public boolean aboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutDiscoop.class);
         startActivity(intent);
         return true;
     }
-
-
-
-
-
 
     @Override
     public void onStart() {

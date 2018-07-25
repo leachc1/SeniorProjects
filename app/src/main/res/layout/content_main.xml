@@ -10,16 +10,6 @@
     tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/app_bar_main">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout">
-    </android.support.v7.widget.SearchView>
-
     <ImageView
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
@@ -65,15 +55,6 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
             android:textIsSelectable="true" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:background="#fb98aa"
-            android:onClick="performSearch"
-            android:text="Search" />
 
     </FrameLayout>
 
