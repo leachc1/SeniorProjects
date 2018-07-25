@@ -41,9 +41,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        /**
         // Add a marker in Sydney and move the camera
         LatLng wentworth = new LatLng(42.3342121,	-71.0917345);
         mMap.addMarker(new MarkerOptions().position(wentworth).title("Wentworth").snippet("Details: 20% off"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(wentworth));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(wentworth));**/
     }
 }
