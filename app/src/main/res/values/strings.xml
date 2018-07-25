@@ -5,6 +5,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="notDeted">Unable to Get Location</string>
+    <string name="settings">Settings</string>
+
+    <string name="textwarn">Permission Mandatory for this App</string>
+
     <string name="action_about">About Discoop</string>
     <string name="title_activity_search">search</string>
     <string name="title_activity_submit">Submit a Discount</string>
@@ -27,7 +32,7 @@
     <string name="title_activity_about_discoop">AboutDiscoop</string>
 
     <string name="about_discoop_header">About Discoop</string>
-    <string name="about_discoop_paragraph">Discoop is an application meant to help you save time and money by locating discounts nearby establishments such as retail storesm restaurants, and bars.
+    <string name="about_discoop_paragraph">Discoop is an application meant to help you save time and money by locating discounts nearby establishments such as retail stores, restaurants, and bars.
       \n \n Our information about discounts is supported by user-submissions. We highly encourage our users to submit any discounts that they encounter using our simple submission page.
        \n \n Discoop was developed by Crissy Leach and Sam Kanner and advised by Professor Charles Wiseman at Wentworth Intitute of Technology Department for Computer Science and Networking.
     </string>

@@ -267,8 +267,7 @@ public class submit extends AppCompatActivity
                         .getJSONObject("location").get("lat").toString();
                 String lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
                         .getJSONObject("location").get("lng").toString();
-
-                locationCoordinates = lat + " / " + lng;
+                locationCoordinates = lat + lng;
 
                 if (dialog.isShowing())
                     dialog.dismiss();
@@ -278,7 +277,7 @@ public class submit extends AppCompatActivity
             }
         }
     }
-    
+
     public boolean aboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutDiscoop.class);
         startActivity(intent);
