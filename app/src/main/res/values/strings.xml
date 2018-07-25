@@ -24,6 +24,12 @@
     <string name="submit_discount_state_location_hint">Enter state</string>
     <string name="submit_discount_expiration">Enter Expiration Date</string>
     <string name="submit_discount_expiration_hint">Enter discount expiration date</string>
+    <string name="title_activity_about_discoop">AboutDiscoop</string>
 
+    <string name="about_discoop_header">About Discoop</string>
+    <string name="about_discoop_paragraph">Discoop is an application meant to help you save time and money by locating discounts nearby establishments such as retail storesm restaurants, and bars.
+      \n \n Our information about discounts is supported by user-submissions. We highly encourage our users to submit any discounts that they encounter using our simple submission page.
+       \n \n Discoop was developed by Crissy Leach and Sam Kanner and advised by Professor Charles Wiseman at Wentworth Intitute of Technology Department for Computer Science and Networking.
+    </string>
 
 </resources>
