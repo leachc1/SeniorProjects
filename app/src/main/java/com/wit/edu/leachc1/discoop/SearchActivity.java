@@ -17,9 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +103,14 @@ public class SearchActivity extends AppCompatActivity
         SearchView searchView = (SearchView) mSearchmenuItem.getActionView();
         searchView.setQueryHint("enter Text");
         searchView.setOnQueryTextListener(this);
+        final ListView list = (ListView) findViewById(R.id.search);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object listItem = list.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
+            }
+        });
         Log.d(TAG2, "onCreateOptionsMenu: mSearchmenuItem->" + mSearchmenuItem.getActionView());
         return true;
     }
