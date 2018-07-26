@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ public class SearchActivity extends AppCompatActivity
     private ListView lvToolbarSerch;
     private String TAG2 = MainActivity.class.getSimpleName();
     List<Discount> arrays = new ArrayList<Discount>();
-    //String[] arrays = new String[]{"98411", "98422", "98433", "98444", "98455"};
     ArrayAdapter<String> adapter;
 
     @Override
@@ -56,11 +55,11 @@ public class SearchActivity extends AppCompatActivity
 
     private void setUpViews() {
         tbMainSearch = (Toolbar)findViewById(R.id.tb_toolbarsearch);
-        lvToolbarSerch =(ListView) findViewById(R.id.lv_toolbarsearch);
+        lvToolbarSerch =(ListView) findViewById(R.id.search);
         arrays = dbHandler.getAllDiscounts();
         List<String> stringArrays = new ArrayList<String>();
         for(Discount d : arrays) {
-            stringArrays.add(d.getExpiration());
+            stringArrays.add(d.getType() + " | " + d.getDetails());
         }
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,stringArrays);
         lvToolbarSerch.setAdapter(adapter);

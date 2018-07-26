@@ -13,7 +13,7 @@
     <string name="textwarn">Permission Mandatory for this App</string>
 
     <string name="action_about">About Discoop</string>
-    <string name="title_activity_search">search</string>
+    <string name="title_activity_search">Search Discounts</string>
     <string name="title_activity_submit">Submit a Discount</string>
     <string name="title_activity_maps">Map</string>
 

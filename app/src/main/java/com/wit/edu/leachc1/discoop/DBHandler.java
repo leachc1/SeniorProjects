@@ -88,8 +88,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 discount.setId(Integer.parseInt(cursor.getString(0)));
                 discount.setType(cursor.getString(1));
                 discount.setAddress(cursor.getString(2));
-                discount.setDetails(cursor.getString(3));
-                discount.setExpiration(cursor.getString(4));
+                discount.setDetails(cursor.getString(4));
+                discount.setExpiration(cursor.getString(3));
                 // Adding discount to list
                 discountList.add(discount);
             } while (cursor.moveToNext());
