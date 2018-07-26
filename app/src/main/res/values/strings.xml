@@ -39,4 +39,6 @@
        \n \n Discoop was developed by Crissy Leach and Sam Kanner and advised by Professor Charles Wiseman at Wentworth Intitute of Technology Department for Computer Science and Networking.
     </string>
 
+    <string name="action_settings">Settings</string>
+
 </resources>
