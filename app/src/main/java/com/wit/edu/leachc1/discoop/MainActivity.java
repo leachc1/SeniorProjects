@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity
 
     private String mLatitudeLabel;
     private String mLongitudeLabel;
-    private TextView mLatitudeText;
-    private TextView mLongitudeText;
+    private static TextView mLatitudeText;
+    private static TextView mLongitudeText;
     private FusedLocationProviderClient mFusedLocationClient;
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -58,12 +58,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mLatitudeLabel = "latitude";
-        mLongitudeLabel = "longitude";
+        mLatitudeLabel = "Latitude";
+        mLongitudeLabel = "Longitude";
         mLatitudeText = (TextView) findViewById((R.id.latitude_text));
+        getLatitude();
         mLongitudeText = (TextView) findViewById((R.id.longitude_text));
+        getLongitude();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -73,6 +74,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+    public static String getLatitude(){
+        String currentLatitude = mLatitudeText.getText().toString();
+        return currentLatitude;
+    }
+
+    public static String getLongitude(){
+        String currentLongitude = mLongitudeText.getText().toString();
+        return currentLongitude;
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -164,15 +177,6 @@ public class MainActivity extends AppCompatActivity
             } else {
                 // Permission denied.
 
-                // Notify the user via a SnackBar that they have rejected a core permission for the
-                // app, which makes the Activity useless. In a real app, core permissions would
-                // typically be best requested during a welcome-screen flow.
-
-                // Additionally, it is important to remember that a permission might have been
-                // rejected without asking the user for permission (device policy or "Never ask
-                // again" prompts). Therefore, a user interface affordance is typically implemented
-                // when permissions are denied. Otherwise, your app could appear unresponsive to
-                // touches or interactions which have required permissions.
                 showSnackbar(R.string.textwarn, R.string.settings,
                         new View.OnClickListener() {
                             @Override
@@ -247,6 +251,7 @@ public class MainActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful() && task.getResult() != null) {
                             mLastLocation = task.getResult();
+
 
                             mLatitudeText.setText(String.format(Locale.ENGLISH, "%s: %f",
                                     mLatitudeLabel,

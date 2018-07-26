@@ -27,7 +27,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -41,10 +40,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        /**
         // Add a marker in Sydney and move the camera
         LatLng wentworth = new LatLng(42.3342121,	-71.0917345);
         mMap.addMarker(new MarkerOptions().position(wentworth).title("Wentworth").snippet("Details: 20% off"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(wentworth));**/
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(wentworth));
+
+        /** Current crashes the map
+        //Add current location marker
+        double currentLatitude = Double.parseDouble(MainActivity.getLatitude());
+        double currentLongitude = Double.parseDouble(MainActivity.getLongitude());
+        LatLng currentLocation = new LatLng(currentLatitude,currentLongitude);
+        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+**/
     }
 }

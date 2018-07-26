@@ -32,14 +32,14 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
+            android:layout_width="152dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:onClick="showMap"
             android:background="@drawable/button_bg_round"
-            android:text="Show Map"
-            android:textColor="#FFF"/>
+            android:onClick="showMap"
+            android:text="Scoop Up \n The Discounts "
+            android:textColor="#FFF" />
 
 
         <TextView
