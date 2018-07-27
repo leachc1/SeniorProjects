@@ -107,8 +107,15 @@ public class SearchActivity extends AppCompatActivity
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object listItem = list.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
+                Discount d = dbHandler.getDiscount(position);
+                Toast.makeText(getApplicationContext(), "Showing on map...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
+                intent.putExtra("address", d.getAddress());
+                intent.putExtra("name", d.getName());
+                intent.putExtra("type", d.getType());
+                intent.putExtra("details", d.getDetails());
+                intent.putExtra("expr", d.getExpiration());
+                startActivity(intent);
             }
         });
         Log.d(TAG2, "onCreateOptionsMenu: mSearchmenuItem->" + mSearchmenuItem.getActionView());
