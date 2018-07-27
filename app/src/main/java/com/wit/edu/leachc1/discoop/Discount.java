@@ -40,9 +40,7 @@ public class Discount {
     public void setDetails(String details) {
         this.details = details;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     //Getters
     public int getId() {
@@ -60,7 +58,5 @@ public class Discount {
     public String getDetails() {
         return details;
     }
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 }

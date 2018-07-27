@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "discountsInformation";
     // Contacts table name
@@ -27,6 +27,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_DETAILS = "details";
     private static final String KEY_NAME = "name";
 
+
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -35,7 +36,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DISCOUNTS_TABLE = "CREATE TABLE " + TABLE_DISCOUNTS + " ("
                 + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_TYPE + " TEXT, " + KEY_ADDR + " TEXT, "
-                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT, " + KEY_NAME + " TEXT" + ")";
+                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT" + KEY_NAME + " TEXT" + ")";
         db.execSQL(CREATE_DISCOUNTS_TABLE);
     }
 
@@ -55,7 +56,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_ADDR, discount.getAddress()); // Discount Address
         values.put(KEY_EXPR, discount.getExpiration()); // Expiration Date
         values.put(KEY_DETAILS, discount.getDetails()); // Discount Details
-        values.put(KEY_NAME, discount.getName()); //Establishment Name
+        values.put(KEY_NAME, discount.getName()); //Establishment name
 
         //Inserting row
         db.insert(TABLE_DISCOUNTS, null, values);
@@ -120,6 +121,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_EXPR, discount.getExpiration());
         values.put(KEY_DETAILS, discount.getDetails());
         values.put(KEY_NAME, discount.getName());
+
         // updating row
         return db.update(TABLE_DISCOUNTS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(discount.getId())});
