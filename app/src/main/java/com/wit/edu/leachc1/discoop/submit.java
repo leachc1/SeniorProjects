@@ -111,6 +111,10 @@ public class submit extends AppCompatActivity
                 String dateString = month + "/" + day + "/" + year;
 
                 insertRows(keyIdInc, typeString, addressString, dateString, detailsString, nameString);
+
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
     }

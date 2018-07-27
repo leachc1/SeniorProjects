@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     // Database Name
     private static final String DATABASE_NAME = "discountsInformation";
     // Contacts table name
@@ -27,7 +27,6 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_DETAILS = "details";
     private static final String KEY_NAME = "name";
 
-
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -36,7 +35,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DISCOUNTS_TABLE = "CREATE TABLE " + TABLE_DISCOUNTS + " ("
                 + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_TYPE + " TEXT, " + KEY_ADDR + " TEXT, "
-                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT" + KEY_NAME + " TEXT" + ")";
+                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT, " + KEY_NAME + " TEXT" + ")";
         db.execSQL(CREATE_DISCOUNTS_TABLE);
     }
 
