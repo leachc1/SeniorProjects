@@ -67,7 +67,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (getAddress != null) {
             LatLng latLng = getLocationFromAddress(this, getAddress);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(getName).snippet(getDetails));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
 
