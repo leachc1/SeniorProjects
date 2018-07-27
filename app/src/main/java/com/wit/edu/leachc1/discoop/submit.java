@@ -96,6 +96,10 @@ public class submit extends AppCompatActivity
                 TextInputEditText detailsInput = (TextInputEditText) findViewById(R.id.textInputEditText);
                 String detailsString = detailsInput.getText().toString();
 
+                // Getting Establishment Name input
+                TextInputEditText nameInput = (TextInputEditText) findViewById(R.id.textInputEditText2);
+                String nameString = nameInput.getText().toString();
+
                 // Getting Expiration Date input
                 DatePicker datePicker = (DatePicker) findViewById(R.id.simpleDatePicker);
                 int day = datePicker.getDayOfMonth();
@@ -106,15 +110,15 @@ public class submit extends AppCompatActivity
                 Integer.toString(year);
                 String dateString = month + "/" + day + "/" + year;
 
-                insertRows(keyIdInc, typeString, locationCoordinates, dateString, detailsString);
+                insertRows(keyIdInc, typeString, addressString, dateString, detailsString, nameString);
             }
         });
     }
 
-    public void insertRows(int id, String type, String address, String expr, String details) {
+    public void insertRows(int id, String type, String address, String expr, String details, String name) {
         DBHandler db = new DBHandler(this);
         Log.d("Insert: ", "Inserting..");
-        db.addDiscount(new Discount(id, type, address, expr, details));
+        db.addDiscount(new Discount(id, type, address, expr, details, name));
         keyIdInc++;
         // Reading all discounts
         Log.d("Reading: ", "Reading all discounts..");
@@ -122,7 +126,7 @@ public class submit extends AppCompatActivity
         for (Discount discount : discounts) {
             String log = "Id: " + discount.getId() + ", Type: " + discount.getType() + ", Address: "
                     + discount.getAddress() + ", Expr Date: " + discount.getExpiration() + ", Details: "
-                    + discount.getDetails();
+                    + discount.getDetails() + ", Name: " + discount.getName();
             Log.d("Discount::", log);
         }
     }

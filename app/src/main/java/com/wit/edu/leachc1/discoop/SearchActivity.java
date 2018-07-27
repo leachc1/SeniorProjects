@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity
         arrays = dbHandler.getAllDiscounts();
         List<String> stringArrays = new ArrayList<String>();
         for(Discount d : arrays) {
-            stringArrays.add(d.getType() + " | " + d.getDetails());
+            stringArrays.add(d.getType() + " | " + d.getName() + " | " + d.getDetails() + " | " + d.getExpiration());
         }
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,stringArrays);
         lvToolbarSerch.setAdapter(adapter);
