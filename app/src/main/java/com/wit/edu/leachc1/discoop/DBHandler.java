@@ -25,6 +25,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_ADDR = "address";
     private static final String KEY_EXPR = "expiration";
     private static final String KEY_DETAILS = "details";
+    private static final String KEY_NAME = "name";
+
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,7 +36,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DISCOUNTS_TABLE = "CREATE TABLE " + TABLE_DISCOUNTS + " ("
                 + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_TYPE + " TEXT, " + KEY_ADDR + " TEXT, "
-                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT" + ")";
+                + KEY_EXPR + " TEXT, " + KEY_DETAILS + " TEXT" + KEY_NAME + " TEXT" + ")";
         db.execSQL(CREATE_DISCOUNTS_TABLE);
     }
 
@@ -54,6 +56,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_ADDR, discount.getAddress()); // Discount Address
         values.put(KEY_EXPR, discount.getExpiration()); // Expiration Date
         values.put(KEY_DETAILS, discount.getDetails()); // Discount Details
+        values.put(KEY_NAME, discount.getName()); //Establishment name
 
         //Inserting row
         db.insert(TABLE_DISCOUNTS, null, values);
@@ -64,12 +67,12 @@ public class DBHandler extends SQLiteOpenHelper {
     public Discount getDiscount(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_DISCOUNTS, new String[] { KEY_ID,
-        KEY_TYPE, KEY_ADDR, KEY_EXPR, KEY_DETAILS }, KEY_ID + "=?",
+        KEY_TYPE, KEY_ADDR, KEY_EXPR, KEY_DETAILS, KEY_NAME }, KEY_ID + "=?",
                 new String[] {String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         Discount discount = new Discount(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
         // return discount
         return discount;
     }
@@ -90,6 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 discount.setAddress(cursor.getString(2));
                 discount.setDetails(cursor.getString(4));
                 discount.setExpiration(cursor.getString(3));
+                discount.setName(cursor.getString(5));
                 // Adding discount to list
                 discountList.add(discount);
             } while (cursor.moveToNext());
@@ -116,6 +120,8 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_ADDR, discount.getAddress());
         values.put(KEY_EXPR, discount.getExpiration());
         values.put(KEY_DETAILS, discount.getDetails());
+        values.put(KEY_NAME, discount.getName());
+
         // updating row
         return db.update(TABLE_DISCOUNTS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(discount.getId())});
