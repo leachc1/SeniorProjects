@@ -69,6 +69,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng latLng = getLocationFromAddress(this, getAddress);
             mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        } else {
+            LatLng latLng = new LatLng(42.3375687, -71.096264);
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Wentworth").snippet("Default"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
 
         /** Current crashes the map
