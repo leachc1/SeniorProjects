@@ -1,7 +1,10 @@
 package com.wit.edu.leachc1.discoop;
 
 /**
- * Created by kanners on 7/12/2018.
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
  */
 
 public class Discount {

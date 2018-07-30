@@ -10,6 +10,13 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
+ */
+
 public class HttpDataHandler {
 
     public HttpDataHandler() {

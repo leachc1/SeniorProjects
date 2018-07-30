@@ -36,6 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

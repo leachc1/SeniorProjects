@@ -53,6 +53,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
+ */
+
 public class SearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
@@ -64,14 +71,8 @@ public class SearchActivity extends AppCompatActivity
     List<Discount> arrays = new ArrayList<Discount>();
     ArrayAdapter<String> adapter;
 
-    protected Location mLastLocation;
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    private FusedLocationProviderClient mFusedLocationClient;
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
-
-    double myLatitude;
-    double myLongitude;
+    Double currentLatitude = new Double(MainActivity.getLatitude());
+    Double currentLongitude = new Double(MainActivity.getLongitude());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,27 +91,6 @@ public class SearchActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view4);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-    }
-
-
-    private void getLastLocation() {
-        mFusedLocationClient.getLastLocation()
-                .addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            mLastLocation = task.getResult();
-                            myLatitude = mLastLocation.getLatitude();
-                            myLongitude = mLastLocation.getLongitude();
-                            String log = myLatitude + ", " + myLongitude;
-
-                        } else {
-                            Log.d(TAG, "getLastLocation:exception", task.getException());
-
-                        }
-                    }
-                });
     }
 
     // set up list view
@@ -130,7 +110,7 @@ public class SearchActivity extends AppCompatActivity
 
             lat = getLatFromAddress(this, address);
             lng = getLngFromAddress(this, address);
-            dist = (distance(myLatitude, myLongitude, lat, lng));
+            dist = (distance(lat, lng, currentLatitude, currentLongitude));
 
             locationMap.put(address, dist);
         }
@@ -150,6 +130,49 @@ public class SearchActivity extends AppCompatActivity
         setSupportActionBar(tbMainSearch);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private double distance(double lat1, double lng1, double lat2, double lng2) {
+        double d = Math.sqrt(Math.pow(lat2 - lat1, 2) - Math.pow(lng2 - lng1, 2));
+        return d;
+    }
+
+    public double getLatFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        double lat = 0;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return 0;
+            }
+            Address location = address.get(0);
+            lat = location.getLatitude();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return lat;
+    }
+
+    public double getLngFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        double lng = 0;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return 0;
+            }
+            Address location = address.get(0);
+            lng = location.getLongitude();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return lng;
     }
 
     @Override
@@ -249,159 +272,5 @@ public class SearchActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout4);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    //distance between current address and discount address
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        // haversine great circle distance approximation, returns meters
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60; // 60 nautical miles per degree of seperation
-        dist = dist * 1852; // 1852 meters per nautical mile
-        return (dist);
-    }
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
-
-    public double getLatFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        double lat = 0;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return 0;
-            }
-            Address location = address.get(0);
-            lat = location.getLatitude();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return lat;
-    }
-
-    public double getLngFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        double lng = 0;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return 0;
-            }
-            Address location = address.get(0);
-            lng = location.getLatitude();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return lng;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if (!checkPermissions()) {
-            requestPermissions();
-        } else {
-            getLastLocation();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        Log.i(TAG, "onRequestPermissionResult");
-        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-            if (grantResults.length <= 0) {
-                // If user interaction was interrupted, the permission request is cancelled and you
-                // receive empty arrays.
-                Log.i(TAG, "User interaction was cancelled.");
-            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted.
-                getLastLocation();
-            } else {
-                // Permission denied.
-
-                showSnackbar(R.string.textwarn, R.string.settings,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // Build intent that displays the App settings screen.
-                                Intent intent = new Intent();
-                                intent.setAction(
-                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package",
-                                        BuildConfig.APPLICATION_ID, null);
-                                intent.setData(uri);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            }
-                        });
-            }
-        }
-    }
-
-    private void showSnackbar(final int mainTextStringId, final int actionStringId,
-                              View.OnClickListener listener) {
-        Snackbar.make(findViewById(android.R.id.content),
-                getString(mainTextStringId),
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(actionStringId), listener).show();
-    }
-
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(SearchActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                REQUEST_PERMISSIONS_REQUEST_CODE);
-    }
-
-    private void requestPermissions() {
-        boolean shouldProvideRationale =
-                ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION);
-
-        // Provide an additional rationale to the user. This would happen if the user denied the
-        // request previously, but didn't check the "Don't ask again" checkbox.
-        if (shouldProvideRationale) {
-            Log.i(TAG, "Displaying permission rationale to provide additional context.");
-
-            showSnackbar(R.string.textwarn, android.R.string.ok,
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Request permission
-                            startLocationPermissionRequest();
-                        }
-                    });
-
-        } else {
-            Log.i(TAG, "Requesting permission");
-            // Request permission. It's possible this can be auto answered if device policy
-            // sets the permission in a given state or the user denied the permission
-            // previously and checked "Never ask again".
-            startLocationPermissionRequest();
-        }
     }
 }

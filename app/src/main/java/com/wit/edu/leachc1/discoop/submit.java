@@ -31,6 +31,13 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/**
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
+ */
+
 public class submit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

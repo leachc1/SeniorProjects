@@ -24,6 +24,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Discoop
+ * Senior Project - Computer Science
+ * Created by Crissy Leach and Sam Kanner
+ * Wentworth Institute of Technology
+ */
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -87,8 +94,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         //Add current location marker
-//        double currentLatitude = Double.parseDouble(MainActivity.getLatitude());
-//        double currentLongitude = Double.parseDouble(MainActivity.getLongitude());
         Double currentLatitude = new Double(MainActivity.getLatitude());
         Double currentLongitude = new Double(MainActivity.getLongitude());
         LatLng currentLocation = new LatLng(currentLatitude,currentLongitude);
