@@ -86,14 +86,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
-        /** Current crashes the map
         //Add current location marker
-        double currentLatitude = Double.parseDouble(MainActivity.getLatitude());
-        double currentLongitude = Double.parseDouble(MainActivity.getLongitude());
+//        double currentLatitude = Double.parseDouble(MainActivity.getLatitude());
+//        double currentLongitude = Double.parseDouble(MainActivity.getLongitude());
+        Double currentLatitude = new Double(MainActivity.getLatitude());
+        Double currentLongitude = new Double(MainActivity.getLongitude());
         LatLng currentLocation = new LatLng(currentLatitude,currentLongitude);
         mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-**/
+        CameraUpdate center = CameraUpdateFactory.newLatLng(currentLocation);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
+
     }
 
     public LatLng getLocationFromAddress(Context context, String strAddress) {

@@ -103,9 +103,10 @@ public class SearchActivity extends AppCompatActivity
                             mLastLocation = task.getResult();
                             myLatitude = mLastLocation.getLatitude();
                             myLongitude = mLastLocation.getLongitude();
+                            String log = myLatitude + ", " + myLongitude;
 
                         } else {
-                            Log.w(TAG, "getLastLocation:exception", task.getException());
+                            Log.d(TAG, "getLastLocation:exception", task.getException());
 
                         }
                     }

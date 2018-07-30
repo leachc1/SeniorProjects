@@ -254,11 +254,9 @@ public class MainActivity extends AppCompatActivity
                             mLastLocation = task.getResult();
 
 
-                            mLatitudeText.setText(String.format(Locale.ENGLISH, "%s: %f",
-                                    mLatitudeLabel,
+                            mLatitudeText.setText(String.format(Locale.ENGLISH, "%f",
                                     mLastLocation.getLatitude()));
-                            mLongitudeText.setText(String.format(Locale.ENGLISH, "%s: %f",
-                                    mLongitudeLabel,
+                            mLongitudeText.setText(String.format(Locale.ENGLISH, "%f",
                                     mLastLocation.getLongitude()));
                         } else {
                             Log.w(TAG, "getLastLocation:exception", task.getException());
