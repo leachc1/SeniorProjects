@@ -73,6 +73,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setTiltGesturesEnabled(false);
         DBHandler db = new DBHandler(this);
         List<Discount> discList = new ArrayList<>();
         discList = db.getAllDiscounts();
