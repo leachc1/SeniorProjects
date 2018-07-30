@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -64,15 +66,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        DBHandler db = new DBHandler(this);
+        List<Discount> discList = new ArrayList<>();
+        discList = db.getAllDiscounts();
 
         if (getAddress != null) {
             LatLng latLng = getLocationFromAddress(this, getAddress);
             mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            CameraUpdate center = CameraUpdateFactory.newLatLng(latLng);
+            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+            mMap.moveCamera(center);
+            mMap.animateCamera(zoom);
         } else {
-            LatLng latLng = new LatLng(42.3375687, -71.096264);
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Wentworth").snippet("Default"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            for (Discount d : discList) {
+                LatLng latLng = getLocationFromAddress(this, d.getAddress());
+                mMap.addMarker(new MarkerOptions().position(latLng).title(d.getName()).snippet(d.getAddress() + ", " + d.getDetails()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
         }
 
         /** Current crashes the map

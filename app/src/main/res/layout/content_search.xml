@@ -20,6 +20,7 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tb_toolbarsearch"
-        ></ListView>
+        android:layout_below="@+id/tb_toolbarsearch">
+
+    </ListView>
 </RelativeLayout>

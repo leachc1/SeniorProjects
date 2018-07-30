@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         mLongitudeText = (TextView) findViewById((R.id.longitude_text));
         getLongitude();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
