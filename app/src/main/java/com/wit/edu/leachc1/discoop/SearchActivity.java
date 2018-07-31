@@ -54,6 +54,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.wit.edu.leachc1.discoop.MainActivity.getLatitude;
+import static com.wit.edu.leachc1.discoop.MainActivity.getLongitude;
+
 /**
  * Discoop
  * Senior Project - Computer Science
@@ -72,8 +75,8 @@ public class SearchActivity extends AppCompatActivity
     List<Discount> arrays = new ArrayList<Discount>();
     ArrayAdapter<String> adapter;
 
-    double currentLatitude = Double.valueOf(MainActivity.getLatitude());
-    double currentLongitude = Double.valueOf(MainActivity.getLongitude());
+    double currentLatitude = Double.valueOf(getLatitude());
+    double currentLongitude = Double.valueOf(getLongitude());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,6 +280,54 @@ public class SearchActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent intent = new Intent(this, MapsActivity.class);
+
+            // Get current location
+            double currentLatitude = Double.valueOf(getLatitude());
+            double currentLongitude = Double.valueOf(getLongitude());
+
+            DBHandler dbHandler = new DBHandler(this);
+            List<Discount> discounts = dbHandler.getAllDiscounts();
+            double distance = 0;
+            String addr = null;
+            double lat;
+            double lng;
+            String extraName = null;
+            String extraType = null;
+            String extraDetails = null;
+            String extraExpr = null;
+            String extraAddr = null;
+
+            for (Discount d : discounts) {
+                if (distance == 0) {
+                    addr = d.getAddress();
+                    lat = getLatFromAddress(this, addr);
+                    lng = getLngFromAddress(this, addr);
+                    distance = distance(lat, lng, currentLatitude, currentLongitude);
+                    extraName = d.getName();
+                    extraExpr = d.getExpiration();
+                    extraType = d.getType();
+                    extraDetails = d.getDetails();
+                    extraAddr = d.getAddress();
+                } else {
+                    addr = d.getAddress();
+                    lat = getLatFromAddress(this, addr);
+                    lng = getLngFromAddress(this, addr);
+                    double tmp = distance(lat, lng, currentLatitude, currentLongitude);
+                    if (tmp < distance) {
+                        distance = tmp;
+                        extraName = d.getName();
+                        extraExpr = d.getExpiration();
+                        extraType = d.getType();
+                        extraDetails = d.getDetails();
+                        extraAddr = d.getAddress();
+                    }
+                }
+            }
+            intent.putExtra("name", extraName);
+            intent.putExtra("type", extraType);
+            intent.putExtra("details", extraDetails);
+            intent.putExtra("address", extraAddr);
+            intent.putExtra("expr", extraExpr);
             startActivity(intent);
         } else if (id == R.id.nav_submit) {
             Intent intent = new Intent(this, submit.class);
