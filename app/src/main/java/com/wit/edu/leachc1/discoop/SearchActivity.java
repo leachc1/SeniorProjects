@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -80,6 +81,7 @@ public class SearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_search);
         setUpViews();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar4);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout4);
@@ -110,9 +112,11 @@ public class SearchActivity extends AppCompatActivity
 
             lat = getLatFromAddress(this, address);
             lng = getLngFromAddress(this, address);
-            dist = (distance(lat, lng, currentLatitude, currentLongitude));
+            dist = (distance(currentLatitude, currentLongitude, lat, lng));
 
             locationMap.put(address, dist);
+            String log = String.valueOf(dist);
+            Log.d("Dist", log);
         }
 
         Object[] a = locationMap.entrySet().toArray();
@@ -133,9 +137,22 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private double distance(double lat1, double lng1, double lat2, double lng2) {
-        double d = Math.sqrt(Math.pow(lat2 - lat1, 2) - Math.pow(lng2 - lng1, 2));
-        return d;
+        Location loc1 = new Location("");
+        loc1.setLatitude(lat1);
+        loc1.setLongitude(lng1);
+
+        Location loc2 = new Location("");
+        loc2.setLatitude(lat2);
+        loc2.setLongitude(lng2);
+
+        double distanceInMeters = loc1.distanceTo(loc2);
+        return distanceInMeters;
     }
+
+//    private double distance(double lat1, double lng1, double lat2, double lng2) {
+//        double d = Math.sqrt(Math.pow(lat2 - lat1, 2) - Math.pow(lng2 - lng1, 2));
+//        return d;
+//    }
 
     public double getLatFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);

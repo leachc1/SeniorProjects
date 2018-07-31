@@ -2,6 +2,7 @@ package com.wit.edu.leachc1.discoop;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -54,6 +55,7 @@ public class submit extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btnShowCoord = (Button) findViewById(R.id.submitBtn);
         edtAddress = (EditText) findViewById(R.id.editText2);
