@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="oval">
-            <stroke android:color="@color/discoopPink" android:width="5dp" />
-            <solid android:color="@color/discoopPinkAlt"/>
-            <size android:width="100dp"
-                android:height="75dp"/>
-        </shape>
-    </item>
+<item>
+    <shape android:shape="rectangle">
+        <stroke android:color="@color/discoopPink" android:width="5dp" />
+        <solid android:color="@color/discoopPinkAlt"/>
+        <size android:width="100dp"
+            android:height="75dp"/>
+    </shape>
+</item>
 </selector>

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -153,6 +156,110 @@ public class MainActivity extends AppCompatActivity
     public void showMap(View v) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
+    }
+
+    public void showClosest(View v) {
+        Intent intent = new Intent(this, MapsActivity.class);
+
+        // Get current location
+        double currentLatitude = Double.valueOf(getLatitude());
+        double currentLongitude = Double.valueOf(getLongitude());
+
+        DBHandler dbHandler = new DBHandler(this);
+        List<Discount> discounts = dbHandler.getAllDiscounts();
+        double distance = 0;
+        String addr = null;
+        double lat;
+        double lng;
+        String extraName = null;
+        String extraType = null;
+        String extraDetails = null;
+        String extraExpr = null;
+        String extraAddr = null;
+
+        for (Discount d : discounts) {
+            if (distance == 0) {
+                addr = d.getAddress();
+                lat = getLatFromAddress(this, addr);
+                lng = getLngFromAddress(this, addr);
+                distance = distance(lat, lng, currentLatitude, currentLongitude);
+                extraName = d.getName();
+                extraExpr = d.getExpiration();
+                extraType = d.getType();
+                extraDetails = d.getDetails();
+                extraAddr = d.getAddress();
+            } else {
+                addr = d.getAddress();
+                lat = getLatFromAddress(this, addr);
+                lng = getLngFromAddress(this, addr);
+                double tmp = distance(lat, lng, currentLatitude, currentLongitude);
+                if (tmp < distance) {
+                    distance = tmp;
+                    extraName = d.getName();
+                    extraExpr = d.getExpiration();
+                    extraType = d.getType();
+                    extraDetails = d.getDetails();
+                    extraAddr = d.getAddress();
+                }
+            }
+        }
+        intent.putExtra("name", extraName);
+        intent.putExtra("type", extraType);
+        intent.putExtra("details", extraDetails);
+        intent.putExtra("address", extraAddr);
+        intent.putExtra("expr", extraExpr);
+        startActivity(intent);
+    }
+
+    public double getLatFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        double lat = 0;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return 0;
+            }
+            Address location = address.get(0);
+            lat = location.getLatitude();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return lat;
+    }
+
+    public double getLngFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        double lng = 0;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return 0;
+            }
+            Address location = address.get(0);
+            lng = location.getLongitude();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return lng;
+    }
+
+    private double distance(double lat1, double lng1, double lat2, double lng2) {
+        Location loc1 = new Location("");
+        loc1.setLatitude(lat1);
+        loc1.setLongitude(lng1);
+
+        Location loc2 = new Location("");
+        loc2.setLatitude(lat2);
+        loc2.setLongitude(lng2);
+
+        double distanceInMeters = loc1.distanceTo(loc2);
+        return distanceInMeters;
     }
 
     public boolean aboutPage(MenuItem item) {

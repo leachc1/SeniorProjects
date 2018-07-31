@@ -34,11 +34,21 @@
             android:id="@+id/button3"
             android:layout_width="152dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|right"
             android:layout_marginTop="50dp"
             android:background="@drawable/button_bg_round"
             android:onClick="showMap"
-            android:text="Scoop Up \n The Discounts "
+            android:text="Scoop Up \n All Discounts "
+            android:textColor="#FFF" />
+        <Button
+            android:id="@+id/nearestButton"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button_bg_round2"
+            android:onClick="showClosest"
+            android:text="Scoop Up \n Nearest Discount"
             android:textColor="#FFF" />
 
 

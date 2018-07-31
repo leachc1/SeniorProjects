@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -24,6 +26,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.wit.edu.leachc1.discoop.MainActivity.getLatitude;
+import static com.wit.edu.leachc1.discoop.MainActivity.getLongitude;
 
 /**
  * Discoop
@@ -53,7 +58,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-        if (bd!=null) {
+        if (bd != null) {
             getAddress = (String) bd.get("address");
             getType = (String) bd.get("type");
             getName = (String) bd.get("name");
@@ -85,30 +90,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (getAddress != null) {
             LatLng latLng = getLocationFromAddress(this, getAddress);
-            mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
+            double currentLatitude = Double.valueOf(getLatitude());
+            double currentLongitude = Double.valueOf(getLongitude());
+            LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+
+            if (getName != null && getDetails != null && getType != null && getExpr != null) {
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getName).snippet(getDetails + ", " + getAddress + ", " + getExpr));
+            } else {
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
+            }
+
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             CameraUpdate center = CameraUpdateFactory.newLatLng(latLng);
             CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
             mMap.moveCamera(center);
             mMap.animateCamera(zoom);
+
+            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+
         } else {
             for (Discount d : discList) {
                 LatLng latLng = getLocationFromAddress(this, d.getAddress());
                 mMap.addMarker(new MarkerOptions().position(latLng).title(d.getName()).snippet(d.getAddress() + ", " + d.getDetails()));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                double currentLatitude = Double.valueOf(getLatitude());
+                double currentLongitude = Double.valueOf(getLongitude());
+                LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+                mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                CameraUpdate center = CameraUpdateFactory.newLatLng(currentLocation);
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+                mMap.moveCamera(center);
+                mMap.animateCamera(zoom);
             }
         }
 
         //Add current location marker
-        Double currentLatitude = new Double(MainActivity.getLatitude());
-        Double currentLongitude = new Double(MainActivity.getLongitude());
-        LatLng currentLocation = new LatLng(currentLatitude,currentLongitude);
-        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-        CameraUpdate center = CameraUpdateFactory.newLatLng(currentLocation);
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-        mMap.moveCamera(center);
-        mMap.animateCamera(zoom);
+//        Double currentLatitude = new Double(MainActivity.getLatitude());
+//        Double currentLongitude = new Double(MainActivity.getLongitude());
+//        LatLng currentLocation = new LatLng(currentLatitude,currentLongitude);
+//        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+//        CameraUpdate center = CameraUpdateFactory.newLatLng(currentLocation);
+//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+//        mMap.moveCamera(center);
+//        mMap.animateCamera(zoom);
 
     }
 
@@ -125,7 +151,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return null;
             }
             Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
         } catch (IOException ex) {
             ex.printStackTrace();
         }

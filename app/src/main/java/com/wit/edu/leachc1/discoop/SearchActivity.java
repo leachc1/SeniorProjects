@@ -72,8 +72,8 @@ public class SearchActivity extends AppCompatActivity
     List<Discount> arrays = new ArrayList<Discount>();
     ArrayAdapter<String> adapter;
 
-    Double currentLatitude = new Double(MainActivity.getLatitude());
-    Double currentLongitude = new Double(MainActivity.getLongitude());
+    double currentLatitude = Double.valueOf(MainActivity.getLatitude());
+    double currentLongitude = Double.valueOf(MainActivity.getLongitude());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
