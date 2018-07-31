@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|right"
             android:layout_marginTop="50dp"
+            android:layout_marginRight="25dp"
             android:background="@drawable/button_bg_round"
             android:onClick="showMap"
             android:text="Scoop Up \n All Discounts "
@@ -46,9 +47,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:layout_marginTop="50dp"
+            android:layout_marginLeft="25dp"
             android:background="@drawable/button_bg_round2"
             android:onClick="showClosest"
-            android:text="Scoop Up \n Nearest Discount"
+            android:text="Scoop Up The \n Nearest Discount"
             android:textColor="#FFF" />
 
 
