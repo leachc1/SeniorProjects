@@ -117,6 +117,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double currentLongitude = Double.valueOf(getLongitude());
                 LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
                 mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
                 CameraUpdate center = CameraUpdateFactory.newLatLng(currentLocation);
                 CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
