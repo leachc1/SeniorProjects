@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.wit.edu.leachc1.discoop.SearchActivity">
 
+    <!--toolbar for search function-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_toolbarsearch"
         android:layout_alignParentTop="true"
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:background="@color/discoopPinkAlt"
         />
+    <!--listview for displaying search results-->
     <ListView
         android:id="@+id/search"
         android:layout_width="match_parent"

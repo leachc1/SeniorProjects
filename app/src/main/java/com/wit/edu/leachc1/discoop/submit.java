@@ -87,6 +87,7 @@ public class submit extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view3);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // when the submit button is clicked, info from input fields are sent to database
         final Button submitButton = findViewById(R.id.submitBtn);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -127,8 +128,10 @@ public class submit extends AppCompatActivity
                 Integer.toString(year);
                 String dateString = month + "/" + day + "/" + year;
 
+                // add the inputs to the database
                 insertRows(keyIdInc, typeString, addressString, dateString, detailsString, nameString);
 
+                // refresh the submit page
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
@@ -136,13 +139,17 @@ public class submit extends AppCompatActivity
         });
     }
 
+    // method to insert the submit inputs to the database
     public void insertRows(int id, String type, String address, String expr, String details, String name) {
         DBHandler db = new DBHandler(this);
         Log.d("Insert: ", "Inserting..");
+        // database handler method to add a discount
         db.addDiscount(new Discount(id, type, address, expr, details, name));
+        // increment key_id
         keyIdInc++;
         // Reading all discounts
         Log.d("Reading: ", "Reading all discounts..");
+        // put all discounts in a list to output to the log
         List<Discount> discounts = db.getAllDiscounts();
         for (Discount discount : discounts) {
             String log = "Id: " + discount.getId() + ", Type: " + discount.getType() + ", Address: "
@@ -152,6 +159,7 @@ public class submit extends AppCompatActivity
         }
     }
 
+    // for nav drawer
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
@@ -206,6 +214,7 @@ public class submit extends AppCompatActivity
         return true;
     }
 
+    // toasts for error checking
     public void toastSubmitMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
@@ -227,6 +236,7 @@ public class submit extends AppCompatActivity
         finish();
     }
 
+    // to get checkbox information
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -260,6 +270,7 @@ public class submit extends AppCompatActivity
         }
     }
 
+    // getting coordinates
     private class GetCoordinates extends AsyncTask<String, Void, String> {
         ProgressDialog dialog = new ProgressDialog(submit.this);
 
@@ -306,61 +317,10 @@ public class submit extends AppCompatActivity
         }
     }
 
+    // about page
     public boolean aboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutDiscoop.class);
         startActivity(intent);
         return true;
     }
-
-    public double getLatFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        double lat = 0;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return 0;
-            }
-            Address location = address.get(0);
-            lat = location.getLatitude();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return lat;
-    }
-
-    public double getLngFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        double lng = 0;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return 0;
-            }
-            Address location = address.get(0);
-            lng = location.getLongitude();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return lng;
-    }
-
-    private double distance(double lat1, double lng1, double lat2, double lng2) {
-        Location loc1 = new Location("");
-        loc1.setLatitude(lat1);
-        loc1.setLongitude(lng1);
-
-        Location loc2 = new Location("");
-        loc2.setLatitude(lat2);
-        loc2.setLongitude(lng2);
-
-        double distanceInMeters = loc1.distanceTo(loc2);
-        return distanceInMeters;
-    }
-
 }

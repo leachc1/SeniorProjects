@@ -34,6 +34,7 @@ public class DBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Create the table
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_DISCOUNTS_TABLE = "CREATE TABLE " + TABLE_DISCOUNTS + " ("

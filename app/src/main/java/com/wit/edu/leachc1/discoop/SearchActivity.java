@@ -72,11 +72,7 @@ public class SearchActivity extends AppCompatActivity
     private Toolbar tbMainSearch;
     private ListView lvToolbarSerch;
     private String TAG2 = MainActivity.class.getSimpleName();
-//    List<Discount> arrays = new ArrayList<Discount>();
     ArrayAdapter<String> adapter;
-
-//    double currentLatitude = Double.valueOf(getLatitude());
-//    double currentLongitude = Double.valueOf(getLongitude());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +102,7 @@ public class SearchActivity extends AppCompatActivity
         lvToolbarSerch =(ListView) findViewById(R.id.search);
         List<Discount> arrays = dbHandler.getAllDiscounts();
 
+        // sort search results
 //        LinkedHashMap<String, Double> locationMap = new LinkedHashMap<>();
 //
 //        double lat;
@@ -135,10 +132,13 @@ public class SearchActivity extends AppCompatActivity
 //        List<String> locationList = new ArrayList<>(locationMap.keySet());
 
 //        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,locationList);
+
+        // add discount to list
         List<String> strArr = new ArrayList<String>();
         for (Discount d : arrays) {
             strArr.add(d.getAddress());
         }
+        // display list as listview with adapter
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,strArr);
         lvToolbarSerch.setAdapter(adapter);
         setSupportActionBar(tbMainSearch);
@@ -146,6 +146,7 @@ public class SearchActivity extends AppCompatActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    // calculates distance between two coordinates
     private double distance(double lat1, double lng1, double lat2, double lng2) {
         Location loc1 = new Location("");
         loc1.setLatitude(lat1);
@@ -159,6 +160,7 @@ public class SearchActivity extends AppCompatActivity
         return distanceInMeters;
     }
 
+    // get latitude from string address with geocoder
     public double getLatFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -178,6 +180,7 @@ public class SearchActivity extends AppCompatActivity
         return lat;
     }
 
+    // get longitude from string address with geocoder
     public double getLngFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -197,12 +200,14 @@ public class SearchActivity extends AppCompatActivity
         return lng;
     }
 
+    // when user submits a search
     @Override
     public boolean onQueryTextSubmit(String query) {
         Log.d(TAG2, "onQueryTextSubmit: query->"+query);
         return true;
     }
 
+    // when user changes text in search bar
     @Override
     public boolean onQueryTextChange(String newText) {
         Log.d(TAG2, "onQueryTextChange: newText->" + newText);
@@ -210,6 +215,7 @@ public class SearchActivity extends AppCompatActivity
         return true;
     }
 
+    // for drawer layout
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout4);
@@ -241,6 +247,8 @@ public class SearchActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Showing on map...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
                 intent.putExtra("address", addr);
+
+                // to send additional information to mapsactivity
 //                intent.putExtra("address", d.getAddress());
 //                intent.putExtra("name", d.getName());
 //                intent.putExtra("type", d.getType());
@@ -268,12 +276,14 @@ public class SearchActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // about page
     public boolean aboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutDiscoop.class);
         startActivity(intent);
         return true;
     }
 
+    // for navigation drawer
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

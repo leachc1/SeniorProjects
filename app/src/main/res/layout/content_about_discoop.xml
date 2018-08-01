@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--content for about page-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,7 @@
     tools:context="com.wit.edu.leachc1.discoop.AboutDiscoop"
     tools:showIn="@layout/activity_about_discoop">
 
+    <!--header-->
     <TextView
         android:id="@+id/aboutheader"
         android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
         android:textSize="32sp">
     </TextView>
 
+    <!--contents-->
     <TextView
         android:id="@+id/aboutcontents"
         android:layout_width="300dp"
@@ -37,6 +40,7 @@
         app:layout_constraintTop_toTopOf="parent">
     </TextView>
 
+    <!--back button-->
     <ImageButton
         android:id="@+id/btnReturn"
         android:layout_width="38dp"

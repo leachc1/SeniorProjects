@@ -17,6 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Wentworth Institute of Technology
  */
 
+// communicates with api
 public class HttpDataHandler {
 
     public HttpDataHandler() {

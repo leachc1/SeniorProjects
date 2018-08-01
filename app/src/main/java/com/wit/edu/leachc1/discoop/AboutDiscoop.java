@@ -15,6 +15,7 @@ import android.view.View;
  * Wentworth Institute of Technology
  */
 
+// About page
 public class AboutDiscoop extends AppCompatActivity {
 
     @Override
@@ -24,6 +25,7 @@ public class AboutDiscoop extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
+    // back button
     public void returnButton(View v) {
                 finish();
                 }
