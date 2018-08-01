@@ -22,6 +22,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,6 +90,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         DBHandler db = new DBHandler(this);
         List<Discount> discList = new ArrayList<>();
         discList = db.getAllDiscounts();
+        BitmapDescriptor discount_icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_icon);
+        BitmapDescriptor current_icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_current_marker_icon);
+
 
         if (getAddress != null) {
             LatLng latLng = getLocationFromAddress(this, getAddress);
@@ -95,9 +101,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
 
             if (getName != null && getDetails != null && getType != null && getExpr != null) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title(getName).snippet(getDetails + ", " + getAddress + ", " + getExpr));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getName).snippet(getDetails + ", " + getAddress + ", " + getExpr).icon(discount_icon));
             } else {
-                mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address"));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getAddress).snippet("Address").icon(discount_icon));
             }
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -106,11 +112,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.moveCamera(center);
             mMap.animateCamera(zoom);
 
-            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location"));
+            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location").icon(current_icon));
         } else {
             for (Discount d : discList) {
                 LatLng latLng = getLocationFromAddress(this, d.getAddress());
-                mMap.addMarker(new MarkerOptions().position(latLng).title(d.getName()).snippet(d.getAddress() + ", " + d.getDetails()));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(d.getName()).snippet(d.getAddress() + ", " + d.getDetails()).icon(discount_icon));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 CameraUpdate center = CameraUpdateFactory.newLatLng(latLng);
                 CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
