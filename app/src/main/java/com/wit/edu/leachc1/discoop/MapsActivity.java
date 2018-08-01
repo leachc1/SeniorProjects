@@ -85,21 +85,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
-        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setTiltGesturesEnabled(false);
+
+        // for discounts
         DBHandler db = new DBHandler(this);
         List<Discount> discList = new ArrayList<>();
         discList = db.getAllDiscounts();
+
+        // for icons
         BitmapDescriptor discount_icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_icon);
         BitmapDescriptor current_icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_current_marker_icon);
 
 
+        // if a discount is selected
         if (getAddress != null) {
+            // Get latlng of selected discount
             LatLng latLng = getLocationFromAddress(this, getAddress);
+
+            // Get current location
             double currentLatitude = Double.valueOf(getLatitude());
             double currentLongitude = Double.valueOf(getLongitude());
             LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
 
+            // markers
             if (getName != null && getDetails != null && getType != null && getExpr != null) {
                 mMap.addMarker(new MarkerOptions().position(latLng).title(getName).snippet(getDetails + ", " + getAddress + ", " + getExpr).icon(discount_icon));
             } else {
@@ -113,7 +122,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.animateCamera(zoom);
 
             mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location").icon(current_icon));
+
+        // show all discounts
         } else {
+            // current location marker
+            double currentLatitude = Double.valueOf(getLatitude());
+            double currentLongitude = Double.valueOf(getLongitude());
+            LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Your Current Location").icon(current_icon));
+
+            // add marker for each discount
             for (Discount d : discList) {
                 LatLng latLng = getLocationFromAddress(this, d.getAddress());
                 mMap.addMarker(new MarkerOptions().position(latLng).title(d.getName()).snippet(d.getAddress() + ", " + d.getDetails()).icon(discount_icon));
@@ -123,9 +141,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(center);
                 mMap.animateCamera(zoom);
             }
+
         }
     }
 
+    // convert string address into latlng coordinates
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);

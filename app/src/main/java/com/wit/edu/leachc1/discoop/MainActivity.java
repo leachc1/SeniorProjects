@@ -50,6 +50,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // for device location
     protected Location mLastLocation;
 
     private String mLatitudeLabel;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(toolbar);
 
+        // for device location
         mLatitudeLabel = "Latitude";
         mLongitudeLabel = "Longitude";
         mLatitudeText = (TextView) findViewById((R.id.latitude_text));
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         getLongitude();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        // for drawer layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,18 +91,20 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
+    // get device latitude
     public static String getLatitude(){
         String currentLatitude = mLatitudeText.getText().toString();
         return currentLatitude;
     }
 
+    // get device longitude
     public static String getLongitude(){
         String currentLongitude = mLongitudeText.getText().toString();
         return currentLongitude;
     }
 
 
+    // for drawer layout
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -155,11 +160,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // show all discounts
     public void showMap(View v) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
+    // show closest discount
     public void showClosest(View v) {
         Intent intent = new Intent(this, MapsActivity.class);
 
@@ -213,6 +220,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    // get latitude from address
     public double getLatFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -232,6 +240,7 @@ public class MainActivity extends AppCompatActivity
         return lat;
     }
 
+    // get longitude from address
     public double getLngFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -251,6 +260,7 @@ public class MainActivity extends AppCompatActivity
         return lng;
     }
 
+    // calculate distance between two coordinates
     private double distance(double lat1, double lng1, double lat2, double lng2) {
         Location loc1 = new Location("");
         loc1.setLatitude(lat1);
@@ -264,12 +274,14 @@ public class MainActivity extends AppCompatActivity
         return distanceInMeters;
     }
 
+    // go to about page
     public boolean aboutPage(MenuItem item) {
         Intent intent = new Intent(this, AboutDiscoop.class);
         startActivity(intent);
         return true;
     }
 
+    // for location service permission
     @Override
     public void onStart() {
         super.onStart();
