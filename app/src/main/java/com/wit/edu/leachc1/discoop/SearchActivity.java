@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity
     private Toolbar tbMainSearch;
     private ListView lvToolbarSerch;
     private String TAG2 = MainActivity.class.getSimpleName();
-    List<Discount> arrays = new ArrayList<Discount>();
+//    List<Discount> arrays = new ArrayList<Discount>();
     ArrayAdapter<String> adapter;
 
 //    double currentLatitude = Double.valueOf(getLatitude());
@@ -104,37 +104,42 @@ public class SearchActivity extends AppCompatActivity
         double currentLongitude = Double.valueOf(getLongitude());
         tbMainSearch = (Toolbar)findViewById(R.id.tb_toolbarsearch);
         lvToolbarSerch =(ListView) findViewById(R.id.search);
-        arrays = dbHandler.getAllDiscounts();
+        List<Discount> arrays = dbHandler.getAllDiscounts();
 
-        LinkedHashMap<String, Double> locationMap = new LinkedHashMap<>();
+//        LinkedHashMap<String, Double> locationMap = new LinkedHashMap<>();
+//
+//        double lat;
+//        double lng;
+//        double dist;
+//
+//        for(Discount d : arrays) {
+//            String address = d.getAddress();
+//
+//            lat = getLatFromAddress(this, address);
+//            lng = getLngFromAddress(this, address);
+//            dist = (distance(currentLatitude, currentLongitude, lat, lng));
+//
+//            locationMap.put(address, dist);
+//            String log = String.valueOf(dist);
+//            Log.d("Dist", log);
+//        }
+//
+//        Object[] a = locationMap.entrySet().toArray();
+//        Arrays.sort(a, new Comparator() {
+//            public int compare(Object o1, Object o2) {
+//                return ((Map.Entry<String, Double>) o2).getValue()
+//                        .compareTo(((Map.Entry<String, Double>) o1).getValue());
+//            }
+//        });
+//
+//        List<String> locationList = new ArrayList<>(locationMap.keySet());
 
-        double lat;
-        double lng;
-        double dist;
-
-        for(Discount d : arrays) {
-            String address = d.getAddress();
-
-            lat = getLatFromAddress(this, address);
-            lng = getLngFromAddress(this, address);
-            dist = (distance(currentLatitude, currentLongitude, lat, lng));
-
-            locationMap.put(address, dist);
-            String log = String.valueOf(dist);
-            Log.d("Dist", log);
+//        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,locationList);
+        List<String> strArr = new ArrayList<String>();
+        for (Discount d : arrays) {
+            strArr.add(d.getAddress());
         }
-
-        Object[] a = locationMap.entrySet().toArray();
-        Arrays.sort(a, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                return ((Map.Entry<String, Double>) o2).getValue()
-                        .compareTo(((Map.Entry<String, Double>) o1).getValue());
-            }
-        });
-
-        List<String> locationList = new ArrayList<>(locationMap.keySet());
-
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,locationList);
+        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,strArr);
         lvToolbarSerch.setAdapter(adapter);
         setSupportActionBar(tbMainSearch);
         ActionBar actionBar = getSupportActionBar();
@@ -153,11 +158,6 @@ public class SearchActivity extends AppCompatActivity
         double distanceInMeters = loc1.distanceTo(loc2);
         return distanceInMeters;
     }
-
-//    private double distance(double lat1, double lng1, double lat2, double lng2) {
-//        double d = Math.sqrt(Math.pow(lat2 - lat1, 2) - Math.pow(lng2 - lng1, 2));
-//        return d;
-//    }
 
     public double getLatFromAddress(Context context, String strAddress) {
         Geocoder coder = new Geocoder(context);
@@ -237,7 +237,7 @@ public class SearchActivity extends AppCompatActivity
 
                 String addr = (String) parent.getAdapter().getItem(position);
 
-                Discount d = dbHandler.getDiscount(position);
+                Discount d = dbHandler.getDiscount(position+1);
                 Toast.makeText(getApplicationContext(), "Showing on map...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
                 intent.putExtra("address", addr);
