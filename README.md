@@ -36,9 +36,11 @@ User Guide
 ○	Clicking the “Submit” button at the bottom right of the page will take the information the user provided and stores it in the database. This information will be available through the search page and the maps page. When the button is clicked, the page will refresh, clearing all fields allowing the user to submit another discount. 
 
 
+
 Developer Guide
 
 Discoop was developed in Android Studio using Java and XML. 
+
 
 ●	MainActivity.java
 
@@ -104,6 +106,7 @@ Discoop was developed in Android Studio using Java and XML.
 
 ■	res/menu/main.xml - layout file for the About button in the app bar
 
+
 ●	AboutDiscoop.java
 
 ○	The AboutDiscoop class controls the application’s informational page. The page displays a TextView paragraph and has a back button that leads back to the previous class.
@@ -115,6 +118,7 @@ Discoop was developed in Android Studio using Java and XML.
 ■	res/layout/activity_about_discoop.xml - layout file for the toolbar
 
 ■	res/layout/content_about_discoop.xml - layout file for the contents of the About page
+
 
 ●	MapsActivity.java
 
@@ -139,6 +143,7 @@ Discoop was developed in Android Studio using Java and XML.
 ■	res/drawable/ic_marker_icon - used for the discount location marker.png
 
 ■	res/layout/activity_maps.xml - layout file used to display the Google Maps fragment
+
 
 ●	SearchActivity.java
 
@@ -186,6 +191,7 @@ Discoop was developed in Android Studio using Java and XML.
 
 ■	res/xml/searchable.xml - xml file to create a searchable activity
 
+
 ●	Submit.java
 
 ○	The Submit class controls the application’s Submission page to gather information about discounts from users. The page gets information about establishment type, location (street name and number and state), establishment name, discount details, and discount expiration date.
@@ -228,9 +234,11 @@ Discoop was developed in Android Studio using Java and XML.
 
 ■	res/menu/submit.xml - menu file for the About page in the app bar
 
+
 ●	Discount.java
 
 ○	The Discount class is used for creating discount objects. It has constructors, setters, and getters for discount id, type, address, expiration, details, and name.
+
 
 ●	DBHandler.java
 
@@ -253,6 +261,7 @@ Discoop was developed in Android Studio using Java and XML.
 ○	The updateDiscount method takes in a discount and uses ContentValues to change the information for that discount. 
 
 ○	The deleteDiscount method takes in a discount and deletes that discount from the database. 
+
 
 ●	HttpDataHandler.java
 
