@@ -74,6 +74,8 @@ public class SearchActivity extends AppCompatActivity
     private String TAG2 = MainActivity.class.getSimpleName();
     ArrayAdapter<String> adapter;
 
+    LinkedHashMap<String, String> nameAddrHM = new LinkedHashMap<String, String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -244,10 +246,18 @@ public class SearchActivity extends AppCompatActivity
                 String addr = (String) parent.getAdapter().getItem(position);
 
                 Discount d = dbHandler.getDiscount(position+1);
+                String dName = d.getName();
+                String dType = d.getType();
+                String dDet = d.getDetails();
+                String dExpr = d.getExpiration();
                 Toast.makeText(getApplicationContext(), "Showing on map...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
                 intent.putExtra("address", addr);
-
+                intent.putExtra("name", dName);
+                intent.putExtra("type", dType);
+                intent.putExtra("details", dDet);
+                intent.putExtra("expr", dExpr);
+                
                 // to send additional information to mapsactivity
 //                intent.putExtra("address", d.getAddress());
 //                intent.putExtra("name", d.getName());
