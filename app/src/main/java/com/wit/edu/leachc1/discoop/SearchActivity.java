@@ -74,8 +74,6 @@ public class SearchActivity extends AppCompatActivity
     private String TAG2 = MainActivity.class.getSimpleName();
     ArrayAdapter<String> adapter;
 
-    LinkedHashMap<String, String> nameAddrHM = new LinkedHashMap<String, String>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,9 +135,12 @@ public class SearchActivity extends AppCompatActivity
 
         // add discount to list
         List<String> strArr = new ArrayList<String>();
+
         for (Discount d : arrays) {
             strArr.add(d.getAddress());
         }
+
+
         // display list as listview with adapter
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,strArr);
         lvToolbarSerch.setAdapter(adapter);
@@ -243,27 +244,15 @@ public class SearchActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 String addr = (String) parent.getAdapter().getItem(position);
 
                 Discount d = dbHandler.getDiscount(position+1);
-                String dName = d.getName();
-                String dType = d.getType();
-                String dDet = d.getDetails();
-                String dExpr = d.getExpiration();
+
                 Toast.makeText(getApplicationContext(), "Showing on map...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SearchActivity.this, MapsActivity.class);
                 intent.putExtra("address", addr);
-                intent.putExtra("name", dName);
-                intent.putExtra("type", dType);
-                intent.putExtra("details", dDet);
-                intent.putExtra("expr", dExpr);
-                
-                // to send additional information to mapsactivity
-//                intent.putExtra("address", d.getAddress());
-//                intent.putExtra("name", d.getName());
-//                intent.putExtra("type", d.getType());
-//                intent.putExtra("details", d.getDetails());
-//                intent.putExtra("expr", d.getExpiration());
+
                 startActivity(intent);
             }
         });
